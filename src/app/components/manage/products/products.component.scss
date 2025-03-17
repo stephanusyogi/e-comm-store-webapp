@@ -1,0 +1,38 @@
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Adjust column widths */
+td, th {
+  width: auto; /* Allow automatic width based on content */
+}
+
+/* Specific column width adjustments */
+th.mat-column-id, td.mat-column-id {
+  width: 10%; /* ID column */
+}
+
+th.mat-column-name, td.mat-column-name {
+  width: 20%; /* Name column */
+}
+
+th.mat-column-shortDescription, td.mat-column-shortDescription {
+  width: 30%; /* Short Description column */
+}
+
+th.mat-column-price, td.mat-column-price {
+  width: 15%; /* Price column */
+}
+
+th.mat-column-discount, td.mat-column-discount {
+  width: 10%; /* Discount column */
+}
+
+th.mat-column-action, td.mat-column-action {
+  width: 15%; /* Action column */
+}

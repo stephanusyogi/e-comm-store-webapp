@@ -5,25 +5,25 @@ import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { CategoryService } from '../../../services/category.service';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { Category } from '../../../types/category';
+import { BrandService } from '../../../services/brand.service';
+import { Brand } from '../../../types/brand';
 
 @Component({
-  selector: 'app-categories',
+  selector: 'app-brands',
   imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, RouterLink],
-  templateUrl: './categories.component.html',
-  styleUrl: './categories.component.scss'
+  templateUrl: './brands.component.html',
+  styleUrl: './brands.component.scss'
 })
-export class CategoriesComponent {
+export class BrandsComponent {
   displayedColumns: string[] = ['id', 'name', 'action'];
-  dataSource: MatTableDataSource<Category>;
+  dataSource: MatTableDataSource<Brand>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  categoryService = inject(CategoryService);
+  brandService = inject(BrandService);
 
   constructor() {
     this.dataSource = new MatTableDataSource([] as any);
@@ -34,7 +34,7 @@ export class CategoriesComponent {
   }
 
   private getServerData() {
-    this.categoryService.getCategories().subscribe((data) => {
+    this.brandService.getBrand().subscribe((data) => {
       console.log(data);
       this.dataSource.data = data;
     });
@@ -56,10 +56,9 @@ export class CategoriesComponent {
 
   delete(id:string){
     console.log(id);
-    this.categoryService.deleteCategoryById(id).subscribe((result:any)=>{
-      alert("Category Deleted");
+    this.brandService.deleteBrandById(id).subscribe((result:any)=>{
+      alert("Brand Deleted");
       this.getServerData();
     })
   }
-
 }

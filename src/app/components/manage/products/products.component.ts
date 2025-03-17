@@ -5,25 +5,25 @@ import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { CategoryService } from '../../../services/category.service';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { Category } from '../../../types/category';
+import { Product } from '../../../types/product';
+import { ProductService } from '../../../services/product.service';
 
 @Component({
-  selector: 'app-categories',
+  selector: 'app-products',
   imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, RouterLink],
-  templateUrl: './categories.component.html',
-  styleUrl: './categories.component.scss'
+  templateUrl: './products.component.html',
+  styleUrl: './products.component.scss'
 })
-export class CategoriesComponent {
-  displayedColumns: string[] = ['id', 'name', 'action'];
-  dataSource: MatTableDataSource<Category>;
+export class ProductsComponent {
+  displayedColumns: string[] = ['id', 'name', 'shortDescription', 'price', 'discount', 'action'];
+  dataSource: MatTableDataSource<Product>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  categoryService = inject(CategoryService);
+  productService = inject(ProductService);
 
   constructor() {
     this.dataSource = new MatTableDataSource([] as any);
@@ -34,7 +34,7 @@ export class CategoriesComponent {
   }
 
   private getServerData() {
-    this.categoryService.getCategories().subscribe((data) => {
+    this.productService.getProducts().subscribe((data) => {
       console.log(data);
       this.dataSource.data = data;
     });
@@ -56,10 +56,9 @@ export class CategoriesComponent {
 
   delete(id:string){
     console.log(id);
-    this.categoryService.deleteCategoryById(id).subscribe((result:any)=>{
-      alert("Category Deleted");
+    this.productService.deleteProductById(id).subscribe((result:any)=>{
+      alert("Product Deleted");
       this.getServerData();
     })
   }
-
 }
